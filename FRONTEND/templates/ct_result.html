@@ -1,0 +1,22 @@
+{% extends 'base_classic.html' %}
+{% set bg_image = '8.jpg' %}
+{% block title %}CT Scan Result - LungLens{% endblock %}
+{% block card_class %}wide{% endblock %}
+{% block content %}
+<h2>Prediction Result</h2>
+<div class="result-text {{ 'green' if r.label == 'Normal' else ('amber' if r.label == 'Benign' else 'red') }}">CT Scan: {{ r.label }} ({{ '%.1f'|format(r.confidence * 100) }}%)</div>
+{% if r.low_confidence %}<div class="flash warning">Low confidence. Ask a radiologist to review this scan.</div>{% endif %}
+{% if r.not_grayscale %}<div class="flash warning">This does not look like a grayscale CT slice, so the result may be meaningless.</div>{% endif %}
+<div class="imgs">
+  <figure><img src="{{ r.original_b64 }}" alt="CT slice"><figcaption>Uploaded CT slice</figcaption></figure>
+  <figure><img src="{{ r.overlay_b64 }}" alt="Grad-CAM"><figcaption>Grad-CAM (red = strongest)</figcaption></figure>
+</div>
+{% for p in r.probs %}
+<div class="prob"><div class="n">{{ p.label }}</div><div class="t"><div class="f" style="width: {{ '%.1f'|format(p.prob * 100) }}%;"></div></div><div class="v">{{ '%.0f'|format(p.prob * 100) }}%</div></div>
+{% endfor %}
+<div class="note">Model: {{ r.arch }} &bull; Ref {{ r.report_id }} &bull; {{ r.timestamp }}. Screening aid only; it analyses one slice.</div>
+<a href="{{ url_for('combined') }}" class="btn">View combined result</a>
+<a href="{{ url_for('ct') }}" class="btn">Make another prediction</a>
+{% if not has_symptom %}<a href="{{ url_for('predict') }}" class="btn gray">Complete symptom check</a>{% endif %}
+<a href="{{ url_for('home') }}" class="btn">Go to Home</a>
+{% endblock %}

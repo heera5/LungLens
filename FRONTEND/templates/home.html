@@ -1,0 +1,140 @@
+{% extends 'base_classic.html' %}
+{% set bg_image = '6.jpg' %}
+{% block title %}LungLens - Check Your Lung Health{% endblock %}
+{% block extra_head %}
+<style>
+  html { scroll-behavior: smooth; }
+  body { display: block; padding: 0; }
+  .emerg { background: #7f1d1d; text-align: center; font-size: .8rem; padding: 6px 12px; }
+  .nav { position: sticky; top: 0; z-index: 5; background: rgba(0,0,0,.85); display: flex; align-items: center;
+         justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 10px 24px; }
+  .nav .brand { font-weight: bold; font-size: 1.3rem; color: #fff; text-decoration: none; } .nav .brand span { color: #38bdf8; }
+  .nav .links { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  .nav .links a { color: #e5e7eb; text-decoration: none; font-size: .92rem; } .nav .links a:hover { color: #7cc0ff; }
+  .nav .btn { margin: 0; padding: 7px 14px; font-size: .9rem; color: #fff !important; }
+  .wrap { max-width: 1050px; margin: 0 auto; padding: 28px 18px 10px; }
+  .panel { background: rgba(0,0,0,.78); border-radius: 8px; padding: 28px 30px; margin-bottom: 22px; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,.5); }
+  .panel h1 { font-size: 2.2rem; margin: 0 0 12px; } .panel h1 span { color: #ff4d4d; }
+  .panel h2 { font-size: 1.6rem; margin: 0 0 6px; }
+  .panel > p.sub { color: #cbd5e1; max-width: 700px; margin: 0 auto 18px; line-height: 1.5; }
+  .panel p { line-height: 1.55; color: #e5e7eb; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; text-align: left; margin-top: 16px; }
+  .box { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 6px; padding: 16px; }
+  .box h4 { margin: 0 0 6px; font-size: 1rem; color: #fff; } .box p { margin: 0; font-size: .88rem; color: #cbd5e1; }
+  .badge { display: inline-block; width: 30px; height: 30px; line-height: 30px; border-radius: 50%; background: #007bff; text-align: center; font-weight: bold; margin-bottom: 8px; }
+  .cta { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; } .cta .btn { margin: 14px 0 0; }
+  .trust { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; margin-top: 18px; font-size: .88rem; color: #86efac; }
+  .quote { display: flex; gap: 18px; align-items: center; text-align: left; }
+  .quote img { width: 110px; height: 110px; object-fit: cover; border-radius: 50%; flex-shrink: 0; }
+  .quote .who { font-size: .85rem; color: #7cc0ff; margin-top: 6px; }
+  .foot { text-align: center; font-size: .78rem; color: #cbd5e1; padding: 8px 18px 30px; max-width: 900px; margin: 0 auto; line-height: 1.5; }
+  .flashbar { max-width: 700px; margin: 14px auto 0; padding: 0 18px; }
+  @media (max-width: 600px) { .quote { flex-direction: column; text-align: center; } }
+</style>
+{% endblock %}
+{% block page %}
+<div class="emerg"><b>Urgent Care Notice:</b> If you have severe difficulty breathing, are coughing up blood, or have sudden crushing chest pain, call your local emergency number immediately.</div>
+<div class="nav">
+  <a href="{{ url_for('home') }}" class="brand">Lung<span>Lens</span></a>
+  <div class="links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('assess_start') }}">Full Assessment</a>
+    <a href="{{ url_for('predict') }}">Symptom Check</a>
+    <a href="{{ url_for('ct') }}">CT Analysis</a>
+    {% if session.get('user') %}
+      <a href="{{ url_for('history') }}">History</a>
+      <span>{{ session['user'] }}</span>
+      <a href="{{ url_for('logout') }}" class="btn gray">Sign Out</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" class="btn">Sign In</a>
+    {% endif %}
+  </div>
+</div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}<div class="flashbar">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+{% endwith %}
+
+<div class="wrap">
+  <div class="panel">
+    <h1>Check your lung health. <span>Catch issues early.</span></h1>
+    <p class="sub">Answer 15 straightforward questions, add a lung CT scan, and receive one combined risk level with a visual explanation you can share with your doctor.</p>
+    <div class="cta">
+      <a href="{{ url_for('assess_start') }}" class="btn">Start Full Assessment</a>
+      <a href="#symptoms" class="btn gray">Learn the Symptoms</a>
+    </div>
+    <div class="trust"><span>&#10003; Free &amp; confidential</span><span>&#10003; Takes only 2 minutes</span><span>&#10003; Doctor-ready report</span></div>
+  </div>
+
+  <div class="panel">
+    <h2>How LungLens Helps You</h2>
+    <p class="sub">Clear, easy-to-understand information about your respiratory health without complicated medical jargon.</p>
+    <div class="grid">
+      <div class="box"><h4>Simple 15-Question Check</h4><p>No invasive tests or equipment required. Simply answer questions about your cough, breathing, lifestyle, and history.</p></div>
+      <div class="box"><h4>Powered by Machine Learning</h4><p>Your answers are evaluated by a machine-learning model trained on a symptom-survey dataset, and CT scans are analysed by a deep-learning model with visual explanations.</p></div>
+      <div class="box"><h4>Printable Summary for Your Doctor</h4><p>At the end you receive an organized summary with recommended questions for your next appointment.</p></div>
+    </div>
+  </div>
+
+  <div class="panel" id="symptoms">
+    <h2>Common Signs You Shouldn't Ignore</h2>
+    <p class="sub">If you regularly experience one or more of these, taking the assessment can help you decide when to see a specialist.</p>
+    <div class="grid">
+      <div class="box"><h4>A Cough That Won't Go Away</h4><p>A persistent cough lasting longer than 3 to 4 weeks, especially if dry, hacking, or producing thick phlegm.</p></div>
+      <div class="box"><h4>Feeling Short of Breath</h4><p>Feeling unusually winded after climbing stairs, walking short distances, or even while sitting quietly.</p></div>
+      <div class="box"><h4>Wheezing or Whistling Sounds</h4><p>A whistling, squeaking, or rattling sound when you exhale, caused by inflammation or narrowing of the airways.</p></div>
+      <div class="box"><h4>Chest Tightness or Discomfort</h4><p>An ongoing dull ache or tightness in the chest that is more noticeable when you take a deep breath or laugh.</p></div>
+      <div class="box"><h4>Smoking &amp; Nicotine Signs</h4><p>Regular smoking exposure or nicotine staining on fingertips, which greatly increases long-term lung vulnerability.</p></div>
+      <div class="box"><h4>Unexplained Fatigue &amp; Trouble Swallowing</h4><p>Deep exhaustion that sleep doesn't resolve, sometimes with discomfort when swallowing food.</p></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="quote">
+      <img src="{{ url_for('static', filename='4.jpg') }}" alt="Doctor portrait">
+      <div>
+        <p style="margin:0; text-align:left;">&ldquo;Many patients wait months to mention a lingering cough or mild shortness of breath because they assume it is just part of aging or getting over a cold. Taking a few minutes to check your risk profile can be the catalyst for a life-saving conversation with your physician.&rdquo;</p>
+        <div class="who">Dr. Marcus Vance, MD &bull; Board Certified Pulmonologist</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="how-it-works">
+    <h2>How the Assessment Works</h2>
+    <p class="sub">Three simple steps to give you peace of mind and useful medical context.</p>
+    <div class="grid">
+      <div class="box"><span class="badge">1</span><h4>Answer 15 Health Questions</h4><p>Select your answers about daily habits, breathing comfort, and history.</p></div>
+      <div class="box"><span class="badge">2</span><h4>Add a CT Scan</h4><p>Upload a CT slice. The deep-learning model classifies it and highlights the region it used (Grad-CAM).</p></div>
+      <div class="box"><span class="badge">3</span><h4>Receive Your Combined Result</h4><p>Get one final risk level, the reason behind it, and the suggested next step to discuss with your doctor.</p></div>
+    </div>
+  </div>
+
+  <div class="panel" id="prevention">
+    <h2>Everyday Ways to Protect Your Lungs</h2>
+    <p class="sub">Practical steps recommended by respiratory therapists and doctors to keep your airways healthy.</p>
+    <div class="grid">
+      <div class="box"><h4>Quit Smoking or Stay Smoke-Free</h4><p>Within 2 to 3 months of quitting, lung function improves significantly and chronic coughing begins to decline.</p></div>
+      <div class="box"><h4>Avoid Secondhand Smoke &amp; Toxins</h4><p>Keep your home and vehicle smoke-free, test for radon, and wear a mask around dust or chemicals.</p></div>
+      <div class="box"><h4>Stay Physically Active</h4><p>Regular moderate exercise like brisk walking or swimming helps your lungs move oxygen more efficiently.</p></div>
+    </div>
+  </div>
+
+  <div class="panel" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="grid" style="grid-template-columns: 1fr;">
+      <div class="box"><h4>Is this assessment a replacement for a doctor?</h4><p>No. LungLens is an educational self-assessment tool. It helps you organize symptoms and identify risk factors so you can have a more informed conversation with your doctor. Only a licensed physician can diagnose a medical condition.</p></div>
+      <div class="box"><h4>Will my answers be kept private?</h4><p>Yes. Your responses are evaluated during your session and are not sold or shared with third parties. CT images are processed in memory and never stored.</p></div>
+      <div class="box"><h4>What if my results show a higher risk?</h4><p>Don't panic. A higher risk rating means your answers or scan match patterns seen in respiratory conditions. Print the summary and see your doctor or a pulmonologist for a clinical checkup.</p></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Ready to check your lung health?</h2>
+    <p class="sub">It only takes 2 minutes and gives you insights you can share with your doctor.</p>
+    <div class="cta">
+      <a href="{{ url_for('assess_start') }}" class="btn">Begin Free Assessment</a>
+      {% if not session.get('user') %}<a href="{{ url_for('signup') }}" class="btn gray">Create Account</a>{% endif %}
+    </div>
+  </div>
+</div>
+<div class="foot"><b>Medical Disclaimer:</b> LungLens is an informational self-assessment tool and does not provide medical diagnoses, treatment recommendations, or prescriptions. Always consult your doctor or pulmonologist about any health concern.<br>&copy; 2026 LungLens Research Prototype &bull; Not a medical device</div>
+{% endblock %}

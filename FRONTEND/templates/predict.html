@@ -1,0 +1,59 @@
+{% extends 'base_classic.html' %}
+{% set bg_image = '7.jpg' %}
+{% block title %}Lung Disease Prediction - LungLens{% endblock %}
+{% block card_class %}wide{% endblock %}
+{% block content %}
+<h2>Lung Disease Prediction</h2>
+<form id="assessmentForm" action="{{ url_for('predict') }}" method="POST">
+  <label for="patientName">Patient Name{% if session.get('user_id') %} (saved with the record){% endif %}:</label>
+  <input type="text" id="patientName" name="patient_name" maxlength="80" placeholder="e.g. Ravi Kumar" {% if session.get('user_id') %}required{% endif %}>
+  <label for="gender">Gender (1 = Male, 0 = Female):</label>
+  <select id="gender" name="gender"><option value="1">1 - Male</option><option value="0">0 - Female</option></select>
+  <label for="age">Age:</label>
+  <input type="number" id="age" name="age" value="45" min="1" max="100" required>
+  <label for="smoking">Smoking (1 = Yes, 0 = No):</label>
+  <select id="smoking" name="smoking"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="yellow_fingers">Yellow Fingers (1 = Yes, 0 = No):</label>
+  <select id="yellow_fingers" name="yellow_fingers"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="anxiety">Anxiety (1 = Yes, 0 = No):</label>
+  <select id="anxiety" name="anxiety"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="peer_pressure">Peer Pressure (1 = Yes, 0 = No):</label>
+  <select id="peer_pressure" name="peer_pressure"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="chronic_disease">Chronic Disease (1 = Yes, 0 = No):</label>
+  <select id="chronic_disease" name="chronic_disease"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="fatigue">Fatigue (1 = Yes, 0 = No):</label>
+  <select id="fatigue" name="fatigue"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="allergy">Allergy (1 = Yes, 0 = No):</label>
+  <select id="allergy" name="allergy"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="wheezing">Wheezing (1 = Yes, 0 = No):</label>
+  <select id="wheezing" name="wheezing"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="alcohol_consuming">Alcohol Consuming (1 = Yes, 0 = No):</label>
+  <select id="alcohol_consuming" name="alcohol_consuming"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="coughing">Coughing (1 = Yes, 0 = No):</label>
+  <select id="coughing" name="coughing"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="shortness_of_breath">Shortness of Breath (1 = Yes, 0 = No):</label>
+  <select id="shortness_of_breath" name="shortness_of_breath"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="swallowing_difficulty">Swallowing Difficulty (1 = Yes, 0 = No):</label>
+  <select id="swallowing_difficulty" name="swallowing_difficulty"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <label for="chest_pain">Chest Pain (1 = Yes, 0 = No):</label>
+  <select id="chest_pain" name="chest_pain"><option value="0">0 - No</option><option value="1">1 - Yes</option></select>
+  <button type="submit" class="btn full" style="margin-top:22px;">Predict</button>
+</form>
+<div class="note">
+  Testing: <button type="button" class="mini" onclick="fillSample('low')">Sample healthy</button>
+  <button type="button" class="mini" onclick="fillSample('high')">Sample high-risk</button>
+  <button type="button" class="mini" onclick="document.getElementById('assessmentForm').reset()">Clear</button>
+</div>
+<div class="link"><a href="{{ url_for('home') }}">&larr; Home</a></div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+function fillSample(p) {
+  const hi = {gender:'1', age:65, smoking:'1', yellow_fingers:'1', anxiety:'1', peer_pressure:'1', chronic_disease:'1', allergy:'1', wheezing:'1', alcohol_consuming:'1', swallowing_difficulty:'1'};
+  const form = document.getElementById('assessmentForm');
+  form.reset();
+  if (p === 'low') { form.gender.value = '0'; form.age.value = 32; return; }
+  Object.keys(hi).forEach(k => { form[k].value = hi[k]; });
+}
+</script>
+{% endblock %}

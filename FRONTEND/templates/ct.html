@@ -1,0 +1,29 @@
+{% extends 'base_classic.html' %}
+{% set bg_image = '6.jpg' %}
+{% block title %}CT Scan Analysis - LungLens{% endblock %}
+{% block content %}
+<h2>CT Scan Analysis</h2>
+<p class="text" style="text-align:center;">Upload a lung CT slice. The model classifies it as Normal, Benign or Malignant and shows a Grad-CAM heatmap.</p>
+{% if not model_ready %}<div class="flash warning">CT model not ready. {{ model_message }}</div>{% endif %}
+<form method="POST" action="{{ url_for('ct') }}" enctype="multipart/form-data">
+  <label for="ctFile" class="upload">
+    <div>Click to choose a CT image (PNG or JPG, up to 8 MB)</div>
+    <img id="ctPreview" alt="CT preview" style="display:none;">
+    <input type="file" id="ctFile" name="ct_image" accept=".png,.jpg,.jpeg,image/png,image/jpeg" required>
+  </label>
+  <div id="ctFileName" class="note"></div>
+  <button type="submit" class="btn full" {% if not model_ready %}disabled{% endif %}>Analyze CT Scan</button>
+</form>
+{% if flow %}<div class="link"><a href="{{ url_for('combined') }}">Skip CT (provisional result from questionnaire only)</a></div>{% endif %}
+<div class="link"><a href="{{ url_for('home') }}">&larr; Home</a></div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+  const f = document.getElementById('ctFile'), prev = document.getElementById('ctPreview'), nm = document.getElementById('ctFileName');
+  f.addEventListener('change', () => {
+    const file = f.files[0];
+    if (!file) { prev.style.display = 'none'; nm.textContent = ''; return; }
+    nm.textContent = file.name; prev.src = URL.createObjectURL(file); prev.style.display = 'block';
+  });
+</script>
+{% endblock %}

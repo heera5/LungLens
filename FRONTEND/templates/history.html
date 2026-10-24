@@ -1,0 +1,34 @@
+{% extends 'base_classic.html' %}
+{% set bg_image = '6.jpg' %}
+{% block title %}My Assessments - LungLens{% endblock %}
+{% block card_class %}xwide{% endblock %}
+{% block content %}
+<h2>My Assessments</h2>
+<form method="GET" action="{{ url_for('history') }}" style="display:flex; gap:8px; max-width:420px; margin:0 auto 14px;">
+  <input type="text" name="q" value="{{ q or '' }}" placeholder="Search by patient name" style="flex:1;">
+  <button type="submit" class="btn" style="margin:0;">Search</button>
+</form>
+{% if rows %}
+<div class="tablewrap"><table>
+  <thead><tr><th>Date</th><th>Patient</th><th>Ref</th><th>Age / Sex</th><th>Questionnaire</th><th>CT scan</th><th>Final level</th><th></th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r['created_at'] }}</td>
+      <td><b>{{ r['patient_name'] or '-' }}</b></td>
+      <td>{{ r['report_id'] }}</td>
+      <td>{{ r['age'] }} / {% if r['gender'] == '1' %}M{% elif r['gender'] == '0' %}F{% else %}-{% endif %}</td>
+      <td>{% if r['symptom_high'] %}Higher risk{% else %}Lower risk{% endif %} ({{ r['symptom_count'] }}/13)</td>
+      <td>{{ r['ct_label'] }} ({{ '%.0f'|format(r['ct_confidence'] * 100) }}%)</td>
+      <td><b class="{{ 'red' if r['final_level'] == 'HIGH' else ('amber' if r['final_level'] == 'MODERATE' else 'green') }}">{{ r['final_level'] }}</b><div class="note" style="margin:0;">{{ r['final_title'] }}</div></td>
+      <td><form method="POST" action="{{ url_for('history_delete', aid=r['id']) }}" onsubmit="return confirm('Delete this saved assessment?');"><button type="submit" class="btn gray" style="margin:0; padding:6px 12px; font-size:.85rem;">Delete</button></form></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% else %}
+<p class="text" style="text-align:center;">No saved assessments yet. Complete a full assessment while signed in and it will appear here.</p>
+{% endif %}
+<a href="{{ url_for('assess_start') }}" class="btn">Start new assessment</a>
+<a href="{{ url_for('home') }}" class="btn">Go to Home</a>
+{% endblock %}

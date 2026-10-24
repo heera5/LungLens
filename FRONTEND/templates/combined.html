@@ -1,0 +1,38 @@
+{% extends 'base_classic.html' %}
+{% set bg_image = '8.jpg' %}
+{% block title %}Prediction Result - LungLens{% endblock %}
+{% block card_class %}wide{% endblock %}
+{% block content %}
+
+    <h2>Prediction Result</h2>
+    {% if symptom and symptom.patient_name %}<div class="note" style="margin:0 0 10px;">Patient: {{ symptom.patient_name }} &bull; {{ symptom.age }} yrs &bull; {% if symptom.gender == '1' %}Male{% else %}Female{% endif %}</div>{% endif %}
+
+    <div class="result-text {{ {'high':'red','moderate':'amber','low':'green'}.get(assessment.level,'grey') }}">
+      {% if assessment.level == 'high' %}Lung Disease Detected{% elif assessment.level == 'moderate' %}Possible Lung Disease Risk{% elif assessment.level == 'low' %}No Lung Disease Detected{% else %}No Assessment Yet{% endif %}
+    </div>
+    <div class="text" style="text-align:center;">{% if assessment.complete %}FINAL{% else %}PROVISIONAL{% endif %} RISK LEVEL: <b>{{ assessment.level|upper if assessment.level != 'none' else '-' }}</b> &mdash; {{ assessment.title }}</div>
+
+    <div class="rows">
+      <div class="row"><span>Symptom questionnaire</span>
+        {% if symptom %}<b class="{{ 'red' if symptom.high else 'green' }}">{{ 'Higher risk' if symptom.high else 'Lower risk' }} ({{ symptom.positive_count }}/13)</b>{% else %}<b class="grey">Not done</b>{% endif %}</div>
+      <div class="row"><span>CT scan analysis</span>
+        {% if ct %}<b class="{{ {'Malignant':'red','Benign':'amber','Normal':'green'}[ct.label] }}">{{ ct.label }} ({{ '%.0f'|format(ct.confidence * 100 if ct.confidence <= 1 else ct.confidence) }}%)</b>{% else %}<b class="grey">Not done</b>{% endif %}</div>
+    </div>
+
+    {% if ct %}
+    <div class="imgs">
+      <figure><img src="{{ ct.original_b64 }}" alt="CT slice"><figcaption>CT slice</figcaption></figure>
+      <figure><img src="{{ ct.overlay_b64 }}" alt="Grad-CAM"><figcaption>Grad-CAM heatmap</figcaption></figure>
+    </div>
+    {% endif %}
+
+    <p class="text"><strong>Why:</strong> {{ assessment.why }}</p>
+    <p class="text"><strong>Next step:</strong> {{ assessment.next }}</p>
+
+    {% if saved_id %}<div class="note">Saved as record #{{ saved_id }}</div>{% endif %}
+
+    <a href="{{ url_for('assess_start') }}" class="btn">Make another prediction</a>
+    {% if signed_in %}<a href="{{ url_for('history') }}" class="btn">My History</a>{% endif %}
+    <a href="{{ url_for('home') }}" class="btn">Go to Home</a>
+  
+{% endblock %}

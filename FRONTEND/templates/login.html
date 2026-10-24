@@ -1,0 +1,15 @@
+{% extends 'base_classic.html' %}
+{% set bg_image = '2.jpg' %}
+{% block title %}Login - LungLens{% endblock %}
+{% block card_class %}light{% endblock %}
+{% block content %}
+<h2>Login</h2>
+<form method="POST" action="{{ url_for('login') }}">
+  <input type="text" id="usernameInput" name="username" placeholder="Username" required autofocus>
+  <input type="password" id="passwordInput" name="password" placeholder="Password" required>
+  <button type="submit" class="btn full" style="margin-top:4px;">Login</button>
+</form>
+<div class="link">Doctor demo: <b>doctor</b> / <b>doctor123</b> <button type="button" id="demoFillBtn" class="mini">Autofill</button></div>
+<div class="link">Don't have an account? <a href="{{ url_for('signup') }}">Signup</a></div>
+<div class="link"><a href="{{ url_for('home') }}">&larr; Home</a></div>
+{% endblock %}

@@ -1,0 +1,1473 @@
+/* ==========================================================================
+   LungLens - Lung Health & Respiratory Assessment
+   Clean, Human-Centered Healthcare Design System
+   ========================================================================== */
+
+:root {
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Healthcare Colors */
+  --color-primary: #0284c7;        /* Trustworthy Medical Blue */
+  --color-primary-hover: #0369a1;
+  --color-primary-light: #e0f2fe;
+  
+  --color-secondary: #0f766e;      /* Deep Teal */
+  --color-secondary-light: #ccfbf1;
+  
+  --color-success: #16a34a;        /* Calm Healthy Green */
+  --color-success-bg: #f0fdf4;
+  --color-success-border: #bbf7d0;
+  
+  --color-danger: #dc2626;         /* Clear Medical Red */
+  --color-danger-bg: #fef2f2;
+  --color-danger-border: #fecaca;
+  
+  --color-warning: #d97706;        /* Warm Amber */
+  --color-warning-bg: #fffbeb;
+  --color-warning-border: #fde68a;
+  
+  /* Clean Light Backgrounds */
+  --bg-page: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --bg-muted: #e2e8f0;
+  
+  /* Text Colors */
+  --text-dark: #0f172a;            /* Deep Slate / Almost Black */
+  --text-body: #334155;            /* Slate Body Text */
+  --text-muted: #64748b;           /* Muted Info */
+  --text-light: #94a3b8;
+  
+  /* Borders & Shadows */
+  --border-color: #e2e8f0;
+  --border-radius-sm: 6px;
+  --border-radius: 12px;
+  --border-radius-lg: 18px;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+}
+
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-page);
+  color: var(--text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Emergency Helpline Banner
+   ========================================================================== */
+.emergency-banner {
+  background-color: #fff1f2;
+  border-bottom: 1px solid #ffe4e6;
+  color: #9f1239;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.emergency-banner strong {
+  color: #881337;
+}
+
+.emergency-banner a {
+  color: #9f1239;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Header & Navigation
+   ========================================================================== */
+.header-nav {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-dark);
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.02em;
+}
+
+.brand-title span {
+  color: var(--color-primary);
+}
+
+.brand-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: block;
+  line-height: 1;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  list-style: none;
+}
+
+.nav-item-link {
+  text-decoration: none;
+  color: var(--text-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.4rem 0.2rem;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-item-link:hover, .nav-item-link.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--border-radius-sm);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--bg-subtle);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-muted);
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: #ffffff;
+}
+
+.btn-success:hover {
+  background-color: #15803d;
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-primary-light);
+}
+
+.btn-lg {
+  padding: 0.85rem 1.75rem;
+  font-size: 1.05rem;
+  border-radius: 8px;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Alert Messages
+   ========================================================================== */
+.flash-wrap {
+  max-width: 1160px;
+  margin: 1.25rem auto 0;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.alert {
+  padding: 1rem 1.25rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.alert-success {
+  background-color: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+  color: #15803d;
+}
+
+.alert-danger, .alert-error {
+  background-color: var(--color-danger-bg);
+  border: 1px solid var(--color-danger-border);
+  color: #b91c1c;
+}
+
+.alert-warning {
+  background-color: var(--color-warning-bg);
+  border: 1px solid var(--color-warning-border);
+  color: #b45309;
+}
+
+.alert-info {
+  background-color: var(--color-primary-light);
+  border: 1px solid #bae6fd;
+  color: #0369a1;
+}
+
+.alert-close {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+}
+
+.alert-close:hover {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Main Layout & Containers
+   ========================================================================== */
+.main-content {
+  flex: 1;
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ==========================================================================
+   Home Page: Warm, Human-Centered Healthcare Hero
+   ========================================================================== */
+.home-hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 3rem;
+  padding: 2.5rem 0 3.5rem;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  margin-bottom: 1.25rem;
+}
+
+.hero-heading {
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-dark);
+  letter-spacing: -0.03em;
+  margin-bottom: 1.25rem;
+}
+
+.hero-heading span {
+  color: var(--color-primary);
+}
+
+.hero-text {
+  font-size: 1.15rem;
+  color: var(--text-body);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 580px;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.25rem;
+}
+
+.hero-trust-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.trust-item i {
+  color: var(--color-success);
+}
+
+/* Hero Feature Card (Doctor & Patient illustration) */
+.hero-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.hero-card-img-wrap {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background-color: var(--bg-subtle);
+  position: relative;
+}
+
+.hero-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-card-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
+}
+
+.hero-card-body {
+  padding: 1.5rem;
+}
+
+.hero-card-body h4 {
+  font-size: 1.15rem;
+  color: var(--text-dark);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-card-body p {
+  font-size: 0.9rem;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Home Page: Why Check Your Lungs Cards
+   ========================================================================== */
+.section-title-wrap {
+  text-align: center;
+  max-width: 650px;
+  margin: 3.5rem auto 2.5rem;
+}
+
+.section-label {
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.section-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.section-subtext {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  margin-bottom: 3rem;
+}
+
+.feature-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 1.25rem;
+}
+
+.feature-box h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.feature-box p {
+  font-size: 0.92rem;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Home Page: Symptoms Guide Section
+   ========================================================================== */
+.symptoms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.symptom-item-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.symptom-item-icon {
+  width: 42px;
+  height: 42px;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.symptom-item-content h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.35rem;
+}
+
+.symptom-item-content p {
+  font-size: 0.88rem;
+  color: var(--text-body);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Home Page: 3-Step Process
+   ========================================================================== */
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.step-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.step-badge {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.step-item h4 {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.step-item p {
+  font-size: 0.88rem;
+  color: var(--text-body);
+}
+
+/* Doctor Quote Box */
+.doctor-quote-box {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--color-primary);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin: 3.5rem 0;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.doctor-avatar-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid var(--border-color);
+}
+
+.doctor-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quote-content p {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-body);
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.quote-author {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.quote-author span {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Assessment Questionnaire (predict.html)
+   ========================================================================== */
+.assessment-intro-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.intro-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.intro-desc {
+  font-size: 1rem;
+  color: var(--text-body);
+  max-width: 720px;
+  margin-bottom: 1.25rem;
+}
+
+.sample-fill-link {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border-color);
+}
+
+.sample-fill-link button {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.sample-fill-link button:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Form Sections */
+.form-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-card-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.form-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-card-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Question Rows */
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.question-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-page);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.question-row:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.question-text-wrap {
+  flex: 1;
+}
+
+.question-main {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.2rem;
+}
+
+.question-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Clean Yes/No Segmented Option Pills */
+.choice-pill-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.choice-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.choice-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-body);
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.choice-option:hover .choice-label {
+  border-color: #94a3b8;
+}
+
+/* Active Selection: No (Clean neutral slate) */
+.choice-option.opt-no input[type="radio"]:checked + .choice-label {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+/* Active Selection: Yes (Warm highlight) */
+.choice-option.opt-yes input[type="radio"]:checked + .choice-label {
+  background-color: #fee2e2;
+  border-color: #f87171;
+  color: #991b1b;
+  font-weight: 700;
+}
+
+/* Demographics Controls */
+.demographics-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.form-group-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.sex-pill-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.sex-option {
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+}
+
+.sex-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sex-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-body);
+  transition: all 0.15s ease;
+}
+
+.sex-option input[type="radio"]:checked + .sex-card {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.age-input-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.input-box {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 0.65rem 1rem;
+  font-size: 1.05rem;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--text-dark);
+  width: 100px;
+}
+
+.input-box:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.slider-styled {
+  flex: 1;
+  accent-color: var(--color-primary);
+  height: 6px;
+  cursor: pointer;
+}
+
+/* Submit Footer Card */
+.form-submit-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.privacy-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: 500px;
+}
+
+/* ==========================================================================
+   Patient Results Page (result.html)
+   ========================================================================== */
+.report-paper {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--bg-subtle);
+  margin-bottom: 2rem;
+}
+
+.report-clinic-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.report-meta-box {
+  text-align: right;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.report-id {
+  font-weight: 700;
+  color: var(--text-dark);
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+/* Patient Demographic Chips */
+.patient-profile-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  background: var(--bg-page);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.profile-field-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  display: block;
+}
+
+.profile-field-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* Status Cards */
+.result-status-card {
+  border-radius: var(--border-radius-sm);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.result-status-card.danger {
+  background-color: var(--color-danger-bg);
+  border: 1px solid var(--color-danger-border);
+}
+
+.result-status-card.success {
+  background-color: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+}
+
+.status-icon-wrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.result-status-card.danger .status-icon-wrap {
+  background-color: #fee2e2;
+  color: var(--color-danger);
+}
+
+.result-status-card.success .status-icon-wrap {
+  background-color: #dcfce7;
+  color: var(--color-success);
+}
+
+.status-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.result-status-card.danger .status-title {
+  color: #991b1b;
+}
+
+.result-status-card.success .status-title {
+  color: #166534;
+}
+
+.status-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+/* Answers Checklist Section */
+.checklist-section {
+  margin-bottom: 2rem;
+}
+
+.checklist-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.answers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.answers-table th {
+  background-color: var(--bg-subtle);
+  color: var(--text-dark);
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+}
+
+.answers-table td {
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--border-color);
+  color: var(--text-body);
+}
+
+.answers-table tr:nth-child(even) td {
+  background-color: #fafaf9;
+}
+
+.badge-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.badge-yes {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.badge-no {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+/* Action Plan & Advice */
+.next-steps-card {
+  background: var(--bg-page);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.next-steps-card h4 {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.next-steps-list {
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--text-body);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  line-height: 1.5;
+}
+
+.report-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+/* ==========================================================================
+   Patient & Doctor Portal Auth (login.html & signup.html)
+   ========================================================================== */
+.auth-page-wrap {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  background: 
+    linear-gradient(135deg, rgba(240, 249, 255, 0.7), rgba(241, 245, 249, 0.8)),
+    url('/static/2.jpg') center/cover no-repeat;
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.auth-box-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.auth-box-header h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 0.35rem;
+}
+
+.auth-box-header p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.auth-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.auth-form-group label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.4rem;
+}
+
+.auth-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text-dark);
+  background: #ffffff;
+  transition: border-color 0.15s ease;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.pass-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pass-toggle-btn:hover {
+  color: var(--text-dark);
+}
+
+.auth-hint-card {
+  background: var(--bg-page);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.25rem;
+}
+
+.auth-links-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.auth-links-footer a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-links-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+  background-color: #0f172a;
+  color: #94a3b8;
+  padding: 3.5rem 1.5rem 1.5rem;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+.footer-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-col-title {
+  color: #f8fafc;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-links-list a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-links-list a:hover {
+  color: #ffffff;
+}
+
+.footer-disclaimer {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--border-radius-sm);
+  padding: 1rem 1.25rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #94a3b8;
+}
+
+.footer-bottom-line {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+/* ==========================================================================
+   Print Optimization
+   ========================================================================== */
+@media print {
+  .emergency-banner, .header-nav, .site-footer, .report-actions-bar, .sample-fill-link {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .report-paper {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  .result-status-card {
+    border: 1px solid #999 !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 860px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-cta-group {
+    justify-content: center;
+  }
+  .hero-trust-bar {
+    justify-content: center;
+  }
+  .features-grid, .steps-row {
+    grid-template-columns: 1fr;
+  }
+  .demographics-row {
+    grid-template-columns: 1fr;
+  }
+  .question-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .choice-pill-group {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .choice-option {
+    flex: 1;
+    text-align: center;
+  }
+  .choice-label {
+    width: 100%;
+    justify-content: center;
+  }
+  .footer-columns {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* ===== LungLens: CT analysis & combined report ===== */
+.ct-card { background:#fff; border:1px solid var(--border-color, #e2e8f0); border-radius:var(--border-radius, 14px); padding:1.5rem; box-shadow:var(--shadow-md, 0 4px 12px rgba(0,0,0,.06)); margin-bottom:1.25rem; }
+.upload-zone { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.35rem; border:2px dashed #94a3b8; border-radius:12px; padding:2rem 1rem; cursor:pointer; background:#f8fafc; text-align:center; transition:border-color .2s, background .2s; position:relative; }
+.upload-zone:hover { border-color:var(--color-primary, #0ea5e9); background:#f0f9ff; }
+.upload-zone > i { font-size:2.2rem; color:var(--color-primary, #0ea5e9); }
+.upload-zone input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+.upload-title { font-weight:700; color:var(--text-dark, #0f172a); }
+.upload-hint { font-size:.85rem; color:var(--text-muted, #64748b); }
+#ctPreview { max-height:260px; max-width:100%; border-radius:8px; margin-top:.75rem; border:1px solid #cbd5e1; }
+.ct-notice { display:flex; gap:.75rem; align-items:flex-start; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:10px; padding:.85rem 1rem; font-size:.9rem; color:#334155; margin:1rem 0; }
+.ct-notice > i { margin-top:3px; color:#475569; }
+.ct-notice-warn { background:#fffbeb; border-color:#fcd34d; color:#92400e; }
+.ct-notice-warn > i { color:#b45309; }
+.ct-status { border-radius:12px; padding:1.1rem 1.4rem; margin:1.25rem 0; border:1px solid; }
+.ct-status-label { font-size:.8rem; text-transform:uppercase; letter-spacing:.06em; opacity:.8; font-weight:700; }
+.ct-status-value { font-size:2rem; font-weight:800; line-height:1.2; }
+.ct-status-conf { font-size:.9rem; opacity:.85; }
+.ct-normal, .ct-assess-success { background:#f0fdf4; border-color:#86efac; color:#166534; }
+.ct-benign, .ct-assess-warning { background:#fffbeb; border-color:#fcd34d; color:#92400e; }
+.ct-malignant, .ct-assess-danger { background:#fef2f2; border-color:#fca5a5; color:#991b1b; }
+.ct-assess-info { background:#eff6ff; border-color:#93c5fd; color:#1e3a8a; }
+.ct-images { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0; }
+.ct-images figure { margin:0; text-align:center; }
+.ct-images img { width:100%; border-radius:10px; border:1px solid #cbd5e1; background:#000; }
+.ct-images figcaption { font-size:.82rem; color:var(--text-muted, #64748b); margin-top:.4rem; }
+.prob-row { display:grid; grid-template-columns:100px 1fr 60px; gap:.75rem; align-items:center; margin:.45rem 0; }
+.prob-name { font-weight:600; font-size:.92rem; }
+.prob-track { background:#e2e8f0; border-radius:999px; height:12px; overflow:hidden; }
+.prob-fill { height:100%; border-radius:999px; }
+.prob-normal { background:#22c55e; } .prob-benign { background:#f59e0b; } .prob-malignant { background:#ef4444; }
+.prob-val { text-align:right; font-variant-numeric:tabular-nums; font-size:.9rem; }
+.combined-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0; }
+.combined-card { border:1px solid #e2e8f0; border-radius:12px; padding:1rem 1.1rem; background:#fff; position:relative; }
+.combined-card h4 { margin:0 0 .5rem 2rem; }
+.combined-step { position:absolute; top:.9rem; left:1rem; width:1.5rem; height:1.5rem; border-radius:50%; background:var(--color-primary, #0ea5e9); color:#fff; font-size:.8rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.combined-result { font-size:1.4rem; font-weight:800; margin:.25rem 0; }
+.res-high, .res-ct-malignant { color:#b91c1c; } .res-low, .res-ct-normal { color:#15803d; } .res-ct-benign { color:#b45309; } .res-none { color:#64748b; font-size:1.05rem; margin-bottom:.6rem; }
+.combined-meta { font-size:.82rem; color:var(--text-muted, #64748b); margin:.2rem 0 .6rem; }
+.combined-thumb { width:100%; max-width:220px; border-radius:8px; border:1px solid #cbd5e1; }
+@media (max-width:720px) { .ct-images, .combined-grid { grid-template-columns:1fr; } }
+@media print { .upload-zone, .ct-notice { break-inside:avoid; } }
+
+/* ===== LungLens: guided flow, final level, history ===== */
+.stepper-wrap { background:#fff; border-bottom:1px solid var(--border-color, #e2e8f0); padding:.7rem 1rem; }
+.stepper { max-width:760px; margin:0 auto; display:flex; align-items:center; gap:.5rem; }
+.stp { display:flex; align-items:center; gap:.5rem; font-size:.86rem; color:#94a3b8; font-weight:600; white-space:nowrap; }
+.stp span { width:1.6rem; height:1.6rem; border-radius:50%; border:2px solid #cbd5e1; display:flex; align-items:center; justify-content:center; font-size:.8rem; }
+.stp.on { color:#0f172a; } .stp.on span { background:var(--color-primary, #0ea5e9); border-color:var(--color-primary, #0ea5e9); color:#fff; }
+.stp.cur { color:var(--color-primary, #0284c7); }
+.stp-line { flex:1; height:2px; background:#e2e8f0; min-width:16px; }
+tr.rule-hit td { background:#e0f2fe; font-weight:700; }
+.history-wrap { overflow-x:auto; }
+.history-table td, .history-table th { font-size:.86rem; vertical-align:middle; }
+.hist-title { font-size:.76rem; color:#64748b; margin-top:2px; }
+.lvl-pill { display:inline-block; padding:2px 10px; border-radius:999px; font-weight:800; font-size:.78rem; border:1px solid; }
+.lvl-low { background:#f0fdf4; color:#166534; border-color:#86efac; } .lvl-moderate { background:#fffbeb; color:#92400e; border-color:#fcd34d; } .lvl-high { background:#fef2f2; color:#991b1b; border-color:#fca5a5; }
+@media (max-width:720px) { .stp { font-size:.72rem; } .stp span { width:1.3rem; height:1.3rem; } }

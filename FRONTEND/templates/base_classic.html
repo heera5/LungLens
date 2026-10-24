@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}LungLens{% endblock %}</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: Arial, Helvetica, sans-serif; color: #fff; padding: 24px;
+      background: url("{{ url_for('static', filename=bg_image|default('8.jpg')) }}") center/cover no-repeat fixed;
+    }
+    .card { width: 100%; max-width: 440px; padding: 26px 30px; border-radius: 8px; text-align: center;
+            background: rgba(0,0,0,.78); box-shadow: 0 4px 24px rgba(0,0,0,.5); }
+    .card.light { background: rgba(255,255,255,.92); color: #222; }
+    .card.wide { max-width: 520px; }
+    .card.xwide { max-width: 1050px; }
+    .card h2 { margin: 0 0 14px; font-size: 1.7rem; }
+    .steps { font-size: .8rem; color: #9ca3af; margin-bottom: 8px; letter-spacing: .5px; }
+    .card label { display: block; font-weight: bold; font-size: .9rem; margin: 14px 0 6px; }
+    .card input[type=text], .card input[type=email], .card input[type=password], .card input[type=number], .card select {
+      width: 100%; padding: 10px 12px; border: 0; border-radius: 4px; font-size: 1rem; background: #fff; color: #222; }
+    .card.light input { background: #e8f0fe; border: 1px solid #cfd8ea; margin-bottom: 12px; }
+    .btn { display: block; width: fit-content; margin: 16px auto 0; padding: 11px 22px; background: #007bff; color: #fff;
+           text-decoration: none; border: 0; border-radius: 6px; font-size: 1rem; cursor: pointer; font-family: inherit; }
+    .btn:hover { background: #0069d9; }
+    .btn.full { width: 100%; }
+    .btn.gray { background: #475569; } .btn.gray:hover { background: #334155; }
+    .link { margin-top: 14px; font-size: .9rem; } .link a { color: #0b6ef3; }
+    .card:not(.light) .link a { color: #7cc0ff; }
+    .flash { padding: 9px 12px; border-radius: 5px; margin-bottom: 12px; font-size: .9rem; text-align: left; }
+    .flash.success { background: #14532d; } .flash.danger, .flash.error { background: #7f1d1d; }
+    .flash.warning { background: #78350f; } .flash.info { background: #1e3a5f; }
+    .card.light .flash { color: #fff; }
+    .result-text { font-size: 1.15rem; font-weight: bold; margin: 8px 0 14px; }
+    .red { color: #ff1a1a; } .green { color: #2ecc71; } .amber { color: #ffb020; } .grey { color: #9ca3af; }
+    .rows { text-align: left; margin: 14px 0; border-top: 1px solid rgba(255,255,255,.18); }
+    .row { display: flex; justify-content: space-between; gap: 12px; padding: 9px 2px;
+           border-bottom: 1px solid rgba(255,255,255,.18); font-size: .95rem; }
+    .imgs { display: flex; gap: 10px; margin: 10px 0; }
+    .imgs figure { margin: 0; flex: 1; } .imgs img { width: 100%; border-radius: 6px; display: block; }
+    .imgs figcaption { font-size: .75rem; color: #cbd5e1; margin-top: 3px; }
+    .text { font-size: .88rem; line-height: 1.5; color: #e5e7eb; text-align: left; margin: 8px 0; }
+    .note { font-size: .78rem; color: #9ca3af; margin-top: 10px; }
+    .prob { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: .9rem; }
+    .prob .n { width: 78px; text-align: left; } .prob .t { flex: 1; height: 10px; background: rgba(255,255,255,.2); border-radius: 5px; overflow: hidden; }
+    .prob .f { height: 100%; background: #007bff; } .prob .v { width: 44px; text-align: right; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; text-align: left; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,.2); vertical-align: top; }
+    th { color: #cbd5e1; }
+    .tablewrap { overflow-x: auto; }
+    .upload { display: block; border: 2px dashed #7cc0ff; border-radius: 8px; padding: 26px 12px; cursor: pointer; margin: 6px 0; }
+    .upload input { display: none; } .upload img { max-width: 100%; max-height: 220px; margin-top: 10px; border-radius: 6px; }
+    .grid2 { display: grid; grid-template-columns: 1fr; gap: 0; }
+    .mini { background: none; border: 0; color: #7cc0ff; cursor: pointer; font-size: .8rem; text-decoration: underline; padding: 0 4px; font-family: inherit; }
+    @media print { body { background: #fff; color: #000; } .card { background: #fff; color: #000; box-shadow: none; } .btn { display: none; } }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  {% block page %}
+  <div class="card {% block card_class %}{% endblock %}">
+    {% if flow and flow.step %}<div class="steps">STEP {{ flow.step }} OF 3 &bull; {{ ['', 'SYMPTOM QUESTIONNAIRE', 'CT SCAN', 'FINAL REPORT'][flow.step] }}</div>{% endif %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+  {% endblock %}
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

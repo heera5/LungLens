@@ -85,4 +85,4 @@ The CT images come from the public IQ-OTH/NCCD dataset ([cite the original sourc
 
 ## Citation and licence
 Released under the MIT licence (see `LICENSE`). Please cite using `CITATION.cff`
-(Heera G, LungLens, v1.0.0, https://github.com/heera5/LungLens, DOI: 10.5281/zenodo.XXXXXXX).
+(Heera G, LungLens, v1.0.0, https://github.com/heera5/LungLens, DOI: 10.5281/zenodo.23623015).

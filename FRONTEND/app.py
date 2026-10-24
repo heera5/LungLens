@@ -18,7 +18,11 @@ app.secret_key = os.environ.get('SECRET_KEY', 'pulmocare_ai_secret_key_2026_x89f
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'users.db')
-MODEL_PATH = os.path.join(BASE_DIR, 'perceptron.pkl')
+MODEL_PATH = os.path.join(
+    os.path.dirname(BASE_DIR),
+    'BACKEND',
+    'perceptron.pkl'
+)
 
 # ===========================================================================
 # Load Pre-trained Model

@@ -1,0 +1,12 @@
+# LungLens - Python packages
+flask
+joblib
+pandas
+numpy
+scikit-learn
+pillow
+opencv-python-headless
+# PyTorch (CPU is enough for the web app). Install with:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision

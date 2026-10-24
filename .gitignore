@@ -1,0 +1,25 @@
+# Patient data and local database - never publish
+users.db
+*.db
+*.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Datasets (not redistributed; see README)
+archive_1.zip
+data/
+*.dcm
+
+# Editor / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Large model weights are attached to the GitHub Release / Zenodo instead
+# (remove the next line if you prefer to commit ct_model.pt directly)
+FRONTEND/ct_model.pt
